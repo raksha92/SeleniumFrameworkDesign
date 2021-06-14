@@ -36,7 +36,7 @@ public class LoginPageTest extends BaseTest{
 	
 	@DataProvider
 	public Object [][] getNegativeLoginData() {
-		Object [][] data = {{"test@44", "test34"}, {"test67@gmail.com", "tes67"}, {" ", " "}};
+		Object [][] data = {{"test@44", "test34"}, {"test64447@gmail.com", "tes67"}, {" ", " "}};
 		return data;
 	}
 	
