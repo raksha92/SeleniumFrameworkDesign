@@ -1,23 +1,41 @@
-pipeline {
-    agent any
-
-    stages {
-        stage('Hello') {
+pipeline { 
+agent any 
+    stages { 
+        stage ('Build') { 
+            steps{
+                echo "Building"
+            }
+        }  
+        stage('Test') {
             steps {
-                echo 'Hello World'
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    bat "mvn clean install"
+                }
             }
         }
-        
-        stage('Bye') {
-            steps {
-                echo 'Bye World'
+        stage('Publish Allure Reports') {
+           steps {
+                script {
+                    allure([
+                        includeProperties: false,
+                        jdk: '',
+                        properties: [],
+                        reportBuildPolicy: 'ALWAYS',
+                        results: [[path: '/allure-results']]
+                    ])
+                }
             }
         }
-        
-        stage('Tata') {
-            steps {
-                echo 'Tata World'
+        stage('Publish Extent Report'){
+            steps{
+                     publishHTML([allowMissing: false,
+                                  alwaysLinkToLastBuild: false, 
+                                  keepAll: false, 
+                                  reportDir: 'build', 
+                                  reportFiles: 'TestExecutionReport.html', 
+                                  reportName: 'HTML Extent Report', 
+                                  reportTitles: ''])
             }
-        }
+        } 
     }
-}
+ }
