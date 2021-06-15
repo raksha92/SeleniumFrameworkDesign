@@ -40,7 +40,7 @@ public class LoginPageTest extends BaseTest{
 		return data;
 	}
 	
-	@Test(dataProvider = "getNegativeLoginData")
+	@Test(dataProvider = "getNegativeLoginData", enabled = false)
 	public void negativeLoginTest(String un, String pwd) {
 		boolean status = lp.doLoginError(un, pwd);
 		Assert.assertTrue(status);
