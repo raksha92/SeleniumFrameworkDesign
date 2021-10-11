@@ -6,6 +6,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Parameters;
+
 import com.opencart.factory.DriverFactory;
 import com.opencart.listeners.AllureReportListeners;
 import com.opencart.pages.AccountsPage;
@@ -37,6 +38,6 @@ public class BaseTest {
 	
 	@AfterTest
 	public void tearDown() {
-		driver.quit();
+		driver.close();
 	}
 }
